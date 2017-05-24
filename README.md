@@ -34,10 +34,9 @@ All the files seen above need to be inside the folder codeigniter on your system
 	.	
 	.
 	.
-
-);
+	);
 
 
 ## Running the program
 
-1. Go to url "http://localhost/codeigniter/index.php/Yomari_controller" and hence you are done.
+1. Go to url "http://localhost/codeigniter/index.php/Yomari_controller" and you are done.
