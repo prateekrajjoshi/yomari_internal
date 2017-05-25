@@ -27,42 +27,26 @@
       <table border="5", style="width:100%">  
       <tbody>  
          <tr>  
-         	<td>ID</td>
-            <td>First Name</td>  
-            <td>Joining Date</td>  
-            <td>Leaving Date</td>
-            <td>Left or not</td>
+         	<td>No. of Employees at Beginning</td>
+         	<td>No. of Employees Joined</td>
+            <td>No. of Employees Left</td>  
+            <td>Ending Balance</td>
+            <td>Attrition Rate</td>
+             
             
          </tr>  
-         <?php 
-         foreach ($result as $row)  
-         {  
-
-           ?><tr>
-        <td><?php echo $row['spi_id'];?></td>    
-        <td><?php echo $row['spi_first_name'];?></td> 
-        <td><?php echo $row['spi_date_of_joining'];?></td>
-        <td><?php echo $row['spi_date_of_leaving'];?></td>
-       
-
-        <?php if ($row['spi_date_of_leaving']=='0000-00-00') 
-            { ?>
-            <td> <?php echo 'nope';  ?> </td> 
-            <?php
-            } ?>
-        <?php  if ($row['spi_date_of_leaving']!='0000-00-00')
-            {?>
-            <td> <?php echo 'left';  ?> </td> 
-            <?php
-      		 }
-            ?>
-           
+         <tr>
+         <?php
+        $total_at_beginning= $at_beginning["num_at_beginning"]- $left_at_beginning["num_left_at_beginning"];
+        $ending_balance= $total_at_beginning+$total_added["num_joined"]-$total_left["num_leaving"];
+        $attrition_rate= ($total_left["num_leaving"] * 100)/($total_at_beginning + $total_added["num_joined"]);
+        ?> 
+        <td><?php echo $total_at_beginning;?></td>   
+        <td><?php echo $total_added["num_joined"];?></td> 
+        <td><?php echo $total_left["num_leaving"];?></td>
+        <td><?php echo $ending_balance; ?></td>
+        <td><?php echo (round($attrition_rate,2) . "%"); ?></td>
 			</tr>
-         <?php 
-         
-         }
-
-         ?>  
 
        </tbody>  
    	</table>  
