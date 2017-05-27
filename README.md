@@ -7,15 +7,14 @@ All the files seen above need to be inside the folder codeigniter on your system
 3. Go to your browser and type the url "http://localhost/codeigniter/index.php/Yomari_controller"
 4. You need to configure your database before this which is discussed somewhere below.
 
-
 ## Manual Installation
 
 1. If you have codeigniter already installed in your system, you need to make changes or replace a couple of files.
 2. Every changes to be made is inside the application folder of codeigniter.
 2. Download and copy /application/controllers/Yomari_controller.php to /var/www/html/codeigniter/application/controllers.
 3. Download and copy /application/models/Yomari_model.php to /var/www/html/codeigniter/application/models.
-4. Downalod and copy /application/view/Yomari_view.php to /var/www/html/codeigniter/application/views.
-
+4. Download and copy /application/view/Yomari_view.php to /var/www/html/codeigniter/application/views.
+5. You need to install PHPExcel before this which is discussed somewhere below.
 
 ## Changes in database.php
 
@@ -36,6 +35,9 @@ All the files seen above need to be inside the folder codeigniter on your system
 	.
 	);
 
+## Installing PHPExcel (Only for Manual Installation)
+
+1. Download and copy /application/third_party/PHPExcel-1.8 folder to /var/www/html/codeigniter/application/third_party.
 
 ## Running the program
 
