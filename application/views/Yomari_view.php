@@ -18,16 +18,21 @@
       <form action="<?php echo site_url('Yomari_controller/');?>add" method="post">
         Enter the year:
         <input name="any_number" id="any_number"> </input>
-        <input type="submit" id="add-btn" class="btn btn-primary" value="Generate" />
+        <input  type="submit" id="add-btn" class="btn btn-primary" value="Generate"/>
+    </form>
+<br><br>
+	<form action="<?php echo site_url('Yomari_controller/');?>excel" method="post">
+		<input name="any_number" id="any_number"> </input>
+        <input type="submit" id="down-btn" class="btn btn-primary" value="Download as Excel File" />
     </form>
 
 
     <br><br>
 
 <?php 
+$total_at_beginning_ind = array_values($total_at_beginning);
 $total_added_ind = array_values($total_added);
 $total_left_ind = array_values($total_left);
-$total_at_beginning_ind = array_values($total_at_beginning);
 ?>
 
 
