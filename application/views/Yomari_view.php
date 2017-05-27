@@ -24,33 +24,87 @@
     <br><br>
 
 
-      <table border="5", style="width:100%">  
-      <tbody>  
-         <tr>  
-         	<td>No. of Employees at Beginning</td>
-         	<td>No. of Employees Joined</td>
-            <td>No. of Employees Left</td>  
-            <td>Ending Balance</td>
-            <td>Attrition Rate</td>
-             
+    <table border="5", style="width:100%">
+<tr>
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>Month</th></tr>
+        </thead>
+        <tbody>
+       	<tr> <td>January</td></tr>
+  		<tr> <td>February</td></tr>
+  		<tr> <td>March</td></tr>
+  		<tr> <td>April</td></tr>
+		<tr> <td>May</td></tr>
+	    <tr> <td>June</td></tr>
+	    <tr> <td>July</td></tr>
+		<tr> <td>August</td></tr>
+		<tr> <td>September</td></tr>
+		<tr> <td>October</td></tr>
+	    <tr> <td>November</td></tr>
+	   	<tr> <td>December</td></tr>
+        </tbody>
+    </table>   
+</td>
+
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>No. of Employees At Beginning</th></tr>
+        </thead>
+        <tbody>
+             <?php foreach ($total_at_beginning as $row) 
+       		 { ?>
+			 <tr><td><?php echo ($row);?></td></tr>
+  	 		 <?php } ?>
+        </tbody>
+    </table>
+</td>
+
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>No. of Employees Joined</th></tr>
+        </thead>
+        <tbody>
+             <?php foreach ($total_added as $row) 
+       		 { ?>
+			 <tr><td><?php echo ($row);?></td></tr>
+  	 		 <?php } ?>
+        </tbody>
+    </table>
+</td>
+
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>No. of Employees Left Company</th></tr>
+        </thead>
+        <tbody>
+             <?php foreach ($total_left as $row) 
+       		 { ?>
+			 <tr><td><?php echo ($row);?></td></tr>
+  	 		 <?php } ?>
+        </tbody>
+    </table>
+</td>
+
+
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>Attrition Rate</th></tr>
+        </thead>
+        <tbody>
             
-         </tr>  
-         <tr>
-         <?php
-        $total_at_beginning= $at_beginning["num_at_beginning"]- $left_at_beginning["num_left_at_beginning"];
-        $ending_balance= $total_at_beginning+$total_added["num_joined"]-$total_left["num_leaving"];
-        $attrition_rate= ($total_left["num_leaving"] * 100)/($total_at_beginning + $total_added["num_joined"]);
-        ?> 
-        <td><?php echo $total_at_beginning;?></td>   
-        <td><?php echo $total_added["num_joined"];?></td> 
-        <td><?php echo $total_left["num_leaving"];?></td>
-        <td><?php echo $ending_balance; ?></td>
-        <td><?php echo (round($attrition_rate,2) . "%"); ?></td>
-			</tr>
+        </tbody>
+    </table>
+</td>
 
-       </tbody>  
-   	</table>  
 
+
+   
 
 </body>
 

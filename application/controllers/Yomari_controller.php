@@ -15,19 +15,15 @@ class Yomari_controller extends CI_Controller
     public function index($value='2012')
 	{
 
-    $data= $this->ym->fun_total_left($value);
-    $data1['total_left']= $data;
-    
 	$data= $this->ym->fun_total_added($value);
     $data1['total_added']= $data;
 
-	$data= $this->ym->fun_at_beginning($value);
-    $data1['at_beginning']= $data;
+	$data= $this->ym->fun_total_left($value);
+    $data1['total_left']= $data;
 
-    $data= $this->ym->fun_left_at_beginning($value);
-    $data1['left_at_beginning']= $data;
-
-
+    $data= $this->ym->fun_total_at_beginning($value);
+    $data1['total_at_beginning']= $data;
+	
 	$this->load->view('Yomari_view', $data1);  
 
     }
