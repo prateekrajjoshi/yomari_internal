@@ -11,23 +11,31 @@
 
 <body>
 
-    <h1><center>Yomari Internal Project</center></h1><br>    
+    <h1><u><center>Yomari Internal Project</center></u></h1><br>    
 
     <p><font size="6">Attrition Rate Calculation</font></p><br>
 
       <form action="<?php echo site_url('Yomari_controller/');?>add" method="post">
+        Enter the year:
         <input name="any_number" id="any_number"> </input>
-        <input type="submit" id="add-btn" class="btn btn-primary" value="Enter" />
+        <input type="submit" id="add-btn" class="btn btn-primary" value="Generate" />
     </form>
 
 
     <br><br>
 
+<?php 
+$total_added_ind = array_values($total_added);
+$total_left_ind = array_values($total_left);
+$total_at_beginning_ind = array_values($total_at_beginning);
+?>
+
 
     <table border="5", style="width:100%">
+    <caption><font size='5'><b>Attrition Table For The Year <?php echo $only_one;?><b></font></caption>
 <tr>
 <td>
-    <table border="5", style="width:100%">
+    <table border="3", style="width:100%">
         <thead>
             <tr><th>Month</th></tr>
         </thead>
@@ -48,8 +56,9 @@
     </table>   
 </td>
 
+
 <td>
-    <table border="5", style="width:100%">
+    <table border="3", style="width:100%">
         <thead>
             <tr><th>No. of Employees At Beginning</th></tr>
         </thead>
@@ -63,7 +72,7 @@
 </td>
 
 <td>
-    <table border="5", style="width:100%">
+    <table border="3", style="width:100%">
         <thead>
             <tr><th>No. of Employees Joined</th></tr>
         </thead>
@@ -77,7 +86,7 @@
 </td>
 
 <td>
-    <table border="5", style="width:100%">
+    <table border="3", style="width:100%">
         <thead>
             <tr><th>No. of Employees Left Company</th></tr>
         </thead>
@@ -92,51 +101,46 @@
 
 
 <td>
-    <table border="5", style="width:100%">
+    <table border="3", style="width:100%">
         <thead>
-            <tr><th>Attrition Rate</th></tr>
+            <tr><th>Ending Balance</th></tr>
         </thead>
         <tbody>
-            
+            <?php for ($i=0;$i<12;$i++)
+    		{ 
+       		 	for ($j=0;$j<12;$j++)
+       		 	{
+       		 		if($i==$j)
+       		 		{ ?>
+       		 		<?php $ending_balance_ind = $total_at_beginning_ind[$i]+$total_added_ind[$i]-$total_left_ind[$i]?>
+					<tr><td><?php echo ($ending_balance_ind);?></td></tr>
+       		 <?php }}} ?>
         </tbody>
     </table>
 </td>
 
 
-
+<td>
+    <table border="5", style="width:100%">
+        <thead>
+            <tr><th>Attrition %</th></tr>
+        </thead>
+        <tbody>
+             <?php for ($i=0;$i<12;$i++)
+    		{ 
+       		 	for ($j=0;$j<12;$j++)
+       		 	{
+       		 		if($i==$j)
+       		 		{ ?>
+       		 		<?php $attrition_ind= $total_left_ind[$i]*100/($total_at_beginning_ind[$i]+$total_added_ind[$i])?>
+					<tr><td><?php echo round($attrition_ind,2)." %";?></td></tr>
+       		 <?php }}} ?>
+        </tbody>
+    </table>
+</td>
    
 
 </body>
 
-
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

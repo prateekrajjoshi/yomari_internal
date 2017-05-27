@@ -5,6 +5,7 @@ class Yomari_model extends CI_Model
 
 public function fun_total_added($value) {
 	$this->load->database();
+
 	$query = $this->db->query("
 		SELECT
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 01, 1, 0)),
@@ -19,7 +20,7 @@ public function fun_total_added($value) {
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 10, 1, 0)),
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 11, 1, 0)),
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 12, 1, 0))
-		FROM staff_personal_information");
+		FROM staff_personal_information"); 
 		
 	return $query->row_array();	
 }

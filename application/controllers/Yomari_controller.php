@@ -15,6 +15,8 @@ class Yomari_controller extends CI_Controller
     public function index($value='2012')
 	{
 
+	$data1['only_one']= $value;
+
 	$data= $this->ym->fun_total_added($value);
     $data1['total_added']= $data;
 
