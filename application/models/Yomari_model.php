@@ -7,6 +7,7 @@ public function fun_total_added($value) {
 	$this->load->database();
 
 	$query = $this->db->query("
+
 		SELECT
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 01, 1, 0)),
    	 	SUM(IF(YEAR(spi_date_of_joining)= $value AND MONTH(spi_date_of_joining)= 02, 1, 0)),
