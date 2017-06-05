@@ -15,61 +15,21 @@ class Yomari_controller extends CI_Controller
     public function index($value='2008')
 	{
 
-	$data1['only_one']= $value;
-
-    $data= $this->ym->fun_total_at_beginning($value);
-    $data1['total_at_beginning']= $data;
-
-	$data= $this->ym->fun_total_added($value);
-    $data1['total_added']= $data;
-
-	$data= $this->ym->fun_total_left($value);
-    $data1['total_left']= $data;
-	
-    $this->load->view('Yomari_view',$data1);
+    $this->load->view('Yomari_view');
 	}   
 
 
-    public function add(){
 
-        $value = $this->input->post('any_number');      
-     echo "<script type='text/javascript'>; window.location.href='".site_url('Yomari_controller/index/'.$value)."'</script>";
+     public function excel(){   
 
-     }
+		$value = $this->input->post('from_year'); 
+     	$value1 = $this->input->post('to_year');
+     	$noyr= $value1-$value;
 
-     public function excel(){
-
-    	
-     	$value = $this->input->post('any_number'); 
-
-    	$data= $this->ym->fun_total_at_beginning($value);
-    	$data1['total_at_beginning']= $data; 
-
-    	$data= $this->ym->fun_total_added($value);
-    	$data1['total_added']= $data;
-
-		$data= $this->ym->fun_total_left($value);
-    	$data1['total_left']= $data;
-
-
-    	$total_at_beginning_ind = array_values($data1['total_at_beginning']);
-    	$total_added_ind = array_values($data1['total_added']);
-		$total_left_ind = array_values($data1['total_left']);
-
-	for ($i=0;$i<12;$i++)
-    		{ 
-       		 	for ($j=0;$j<12;$j++)
-       		 	{
-       		 		if($i==$j)
-       		 		{
-       		 		$ending_balance_ind[$i] = $total_at_beginning_ind[$i]+$total_added_ind[$i]-$total_left_ind[$i];
-       		 		$attrition_ind[$i] = $total_left_ind[$i]*100/($total_at_beginning_ind[$i]+$total_added_ind[$i]);
-       		  }}}
-
+     	if($noyr<=15 && $noyr>=0){
 
      	require(APPPATH .'third_party/PHPExcel-1.8/Classes/PHPExcel.php');
      	require(APPPATH .'third_party/PHPExcel-1.8/Classes/PHPExcel/Writer/Excel2007.php');
-
 
      	$objReader = PHPExcel_IOFactory::createReader('Excel5');
 		$objPHPExcel = $objReader->load("yom_temp.xls");
@@ -80,8 +40,21 @@ class Yomari_controller extends CI_Controller
      	$objPHPExcel->getProperties()->setSubject("");
      	$objPHPExcel->getProperties()->setDescription("");
 
+     	for ($y=0; $y<=$noyr; $y++)
+     	{
 
-     	$objPHPExcel->setActiveSheetIndex(0);
+    	$data= $this->ym->fun_total_at_beginning($value);
+    	$data1['total_at_beginning']= $data; 
+
+    	$data= $this->ym->fun_total_added($value);
+    	$data1['total_added']= $data;
+
+		$data= $this->ym->fun_total_left($value);
+    	$data1['total_left']= $data;
+
+		
+		$objPHPExcel->setActiveSheetIndex($y);
+		$objPHPExcel->getActiveSheet()->setTitle('Year '.$value);
 
 		$objPHPExcel->getActiveSheet()->SetCellValue('A1','ATTRITION HISTORY OF THE YEAR '.$value);
 		$objPHPExcel->getActiveSheet()->SetCellValue('C3','Attrition Rate '.$value);
@@ -114,23 +87,19 @@ class Yomari_controller extends CI_Controller
 			$objPHPExcel->getActiveSheet()->SetCellValue('G'.$num3,$row);
 			$num3++;
 		} 
-		for ($i=0;$i<12;$i++)
+
+		$value++;
+		}
+
+		for($j=14; $j>=($noyr+1); $j--)
 		{
 
-			$objPHPExcel->getActiveSheet()->SetCellValue('H'.$num4,$ending_balance_ind[$i] );
-			$num4++;
-		} 
-		for ($i=0;$i<12;$i++)
-		{
+			$objPHPExcel->removeSheetByIndex($j);
 
-			$objPHPExcel->getActiveSheet()->SetCellValue('I'.$num5,round($attrition_ind[$i],2)." %" );
-			$num5++;
-		} 
-
+		}
 
 
 		$filename= "Tasks-Exported-on-".date("Y-m-d-H-i-s").' Yomari_Attrition_Rate.xlsx';
-		$objPHPExcel->getActiveSheet()->setTitle("Attrition Table");
 
 
 		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -142,8 +111,16 @@ class Yomari_controller extends CI_Controller
 		$writer = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$writer->save('php://output');
 		exit; 
+	}
 
-    
+    else if ($noyr>15){
+    echo '<script>alert("Difference in years should be less than or equals to 15 years!!");</script>';
+               redirect('Yomari_controller/', 'refresh');
+    }
+        else if ($noyr<0){
+    echo '<script>alert("Invalid Year Input!!");</script>';
+               redirect('Yomari_controller/', 'refresh');
+    }
  
  }
 }
