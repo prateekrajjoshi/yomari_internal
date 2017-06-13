@@ -103,8 +103,8 @@ input[type=number], select {
 
 
   <div align="center"> <form action="<?php echo site_url('Yomari_controller/');?>excel" method="post">
-     <font color="white" size="6"> From : </font> <input type="number" name="from_year" id="from_year" min="1990" max="2020" > </input>
-      <font color="white" size="6"> To : </font> <input type="number" name="to_year" id="to_year" min="1990" max="2020" > </input>
+     <font color="white" size="6"> From : </font> <input type="number" name="from_year" id="from_year" min="1990" max="2050" > </input>
+      <font color="white" size="6"> To : </font> <input type="number" name="to_year" id="to_year" min="1990" max="2050" > </input>
       <br><br><br><br>
         <input type="submit" id="down-btn" class="btn btn-primary" value="Download as Excel File" onclick="f1()" />
     </form></div>
